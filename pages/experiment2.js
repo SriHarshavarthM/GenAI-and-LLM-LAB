@@ -11,7 +11,6 @@ export default function Experiment2() {
     setLoading(true);
     setAnalysis(null);
     try {
-      // Calling the sentiment classifier endpoint explicitly
       const res = await fetch('/api/classify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -22,7 +21,7 @@ export default function Experiment2() {
         setAnalysis(result.data);
       }
     } catch (err) {
-      alert("Error contacting Hugging Face Engine");
+      alert("Error contacting internal classification backend");
     } finally {
       setLoading(false);
     }
@@ -39,7 +38,7 @@ export default function Experiment2() {
           <textarea 
             rows="4" 
             style={{ width: '100%', padding: '1rem', border: '1px solid #cbd5e1', borderRadius: '10px', fontSize: '1rem', fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} 
-            placeholder="Type or paste text here (e.g., This framework works brilliantly!)..." 
+            placeholder="Type or paste text here..." 
             value={text} 
             onChange={(e) => setText(e.target.value)}
           />
@@ -53,7 +52,7 @@ export default function Experiment2() {
         </div>
 
         {analysis && (
-          <div style={{ marginTop: '2rem', backgroundColor: '#ffffff', padding: '2rem', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+          <div style={{ marginTop: '2rem', backgroundColor: '#ffffff', padding: '2rem', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
             <h3 style={{ fontSize: '1.2rem', fontWeight: '700', color: '#0f172a', marginBottom: '1.25rem' }}>Metrics Vector Breakdown:</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {analysis.map((item, index) => (
